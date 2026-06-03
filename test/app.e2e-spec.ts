@@ -23,6 +23,32 @@ describe('AppController (e2e)', () => {
       .expect('Hello World!');
   });
 
+  it('/armstrong/153 (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/armstrong/153')
+      .expect(200)
+      .expect({
+        value: 153,
+        isArmstrong: true,
+      });
+  });
+
+  it('/armstrong/154 (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/armstrong/154')
+      .expect(200)
+      .expect({
+        value: 154,
+        isArmstrong: false,
+      });
+  });
+
+  it('/armstrong/not-a-number (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/armstrong/not-a-number')
+      .expect(400);
+  });
+
   afterEach(async () => {
     await app.close();
   });
