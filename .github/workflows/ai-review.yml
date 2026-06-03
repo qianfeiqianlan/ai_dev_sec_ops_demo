@@ -49,4 +49,4 @@ jobs:
             Keep feedback concise and actionable. Do not request style-only changes when ESLint or Prettier already covers them.
           claude_args: |
             --model ${{ vars.ANTHROPIC_MODEL }}
-            --max-turns 5
+            --max-turns 15
