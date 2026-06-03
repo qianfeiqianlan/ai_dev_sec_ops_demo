@@ -27,10 +27,13 @@ jobs:
     steps:
       - name: Resolve image
         id: image
+        env:
+          INPUT_IMAGE: ${{ inputs.image }}
+          FALLBACK_IMAGE: ${{ env.DEFAULT_IMAGE }}
         run: |
-          IMAGE="${{ inputs.image }}"
+          IMAGE="$INPUT_IMAGE"
           if [ -z "$IMAGE" ]; then
-            IMAGE="${{ env.DEFAULT_IMAGE }}"
+            IMAGE="$FALLBACK_IMAGE"
           fi
           echo "ref=$IMAGE" >> "$GITHUB_OUTPUT"
 
