@@ -20,6 +20,8 @@ The goal is to demonstrate how code moves from local development checks, through
 
 The end-to-end flow is documented in [docs/devsecops-flow.md](docs/devsecops-flow.md).
 
+For a Chinese beginner-friendly explanation of the full process, see [docs/devsecops-guide.zh-CN.md](docs/devsecops-guide.zh-CN.md).
+
 At a high level, the demo is split into three gates:
 
 - Local developer gate: fast checks before code leaves the workstation.
