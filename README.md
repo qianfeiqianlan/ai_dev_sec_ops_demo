@@ -20,6 +20,10 @@ This repository is a NestJS-based demo project for showing a full GitHub-driven 
 
 The goal is to demonstrate how code moves from local development checks, through pull request quality and security gates, into release, Docker image publishing, image scanning, and supply-chain evidence.
 
+<p align="center">
+  <img src="docs/devsecops-architecture-command-center.svg" alt="AI DevSecOps Demo command center architecture" width="960">
+</p>
+
 > Current status: this repository contains the DevSecOps demo configuration. GitHub-side workflows run after the repository is pushed and the required repository secrets/settings are configured.
 
 ## Tech Stack
