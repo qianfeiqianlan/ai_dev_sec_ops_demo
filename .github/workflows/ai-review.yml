@@ -18,7 +18,10 @@ jobs:
   claude-review:
     name: Claude Code review
     runs-on: ubuntu-latest
-    if: ${{ !github.event.pull_request.draft }}
+    if: ${{ !github.event.pull_request.draft && github.actor != 'dependabot[bot]' }}
+    env:
+      ANTHROPIC_BASE_URL: ${{ vars.ANTHROPIC_BASE_URL }}
+      ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ vars.ANTHROPIC_MODEL }}
 
     steps:
       - name: Checkout
@@ -29,7 +32,7 @@ jobs:
       - name: Review pull request
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_AUTH_TOKEN || secrets.ANTHROPIC_API_KEY }}
           prompt: |
             Review this pull request for a NestJS TypeScript API project.
 

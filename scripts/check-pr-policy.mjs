@@ -20,7 +20,8 @@ const branch = pullRequest.head?.ref ?? '';
 const titlePattern =
   /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9._-]+\))?!?: .+/;
 const branchPattern =
-  /^(feature|feat|fix|bugfix|hotfix|chore|docs|test|refactor|release|codex)\/[a-z0-9._-]+$/;
+  /^(feature|feat|fix|bugfix|hotfix|chore|docs|test|refactor|release|codex)\/[a-z0-9._/-]+$/;
+const allowedBotBranchPattern = /^dependabot\/[a-z0-9._/-]+$/;
 
 const failures = [];
 
@@ -28,9 +29,9 @@ if (!titlePattern.test(title)) {
   failures.push(`PR title must follow Conventional Commits, got: "${title}"`);
 }
 
-if (!branchPattern.test(branch)) {
+if (!branchPattern.test(branch) && !allowedBotBranchPattern.test(branch)) {
   failures.push(
-    `Branch name must look like "feat/something" or "fix/something", got: "${branch}"`,
+    `Branch name must look like "feat/something", "fix/something", or a Dependabot branch, got: "${branch}"`,
   );
 }
 
