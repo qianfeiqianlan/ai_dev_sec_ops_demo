@@ -1,0 +1,45 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  claude-review:
+    name: Claude Code review
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.draft }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Review pull request
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review this pull request for a NestJS TypeScript API project.
+
+            Focus on:
+            - correctness and maintainability
+            - missing unit or Supertest API/e2e coverage
+            - API behavior changes and backward compatibility
+            - input validation, error handling, and security risks
+            - dependency or configuration changes that affect CI/CD
+
+            Keep feedback concise and actionable. Do not request style-only changes when ESLint or Prettier already covers them.
+          claude_args: |
+            --max-turns 5

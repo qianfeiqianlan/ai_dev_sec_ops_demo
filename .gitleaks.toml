@@ -1,0 +1,4 @@
+title = "AI DevSecOps Demo Gitleaks Config"
+
+[extend]
+useDefault = true

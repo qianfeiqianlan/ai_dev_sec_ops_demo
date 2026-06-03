@@ -4,7 +4,7 @@ This repository is a NestJS-based demo project for showing a full GitHub-driven 
 
 The goal is to demonstrate how code moves from local development checks, through pull request quality and security gates, into release, Docker image publishing, image scanning, and supply-chain evidence.
 
-> Current status: this repository contains the planning documentation first. Git hooks, GitHub Actions workflows, security scanners, AI review, and release automation will be implemented in the next steps.
+> Current status: this repository contains the DevSecOps demo configuration. GitHub-side workflows run after the repository is pushed and the required repository secrets/settings are configured.
 
 ## Tech Stack
 
@@ -13,8 +13,8 @@ The goal is to demonstrate how code moves from local development checks, through
 - pnpm
 - Jest unit tests
 - Supertest API/e2e tests
-- GitHub Actions, planned
-- Docker, planned
+- GitHub Actions
+- Docker
 
 ## DevSecOps Flow
 
@@ -26,30 +26,42 @@ At a high level, the demo is split into three gates:
 - Pull request gate: mandatory quality, test, security, and AI review checks before merge.
 - Release gate: changelog, Docker image, image scan, SBOM, signing, and publish steps.
 
-## Planned Workflows
+## Workflows
 
-The following GitHub Actions workflows are planned for this demo. They are intentionally separated so each gate has a clear responsibility and can be explained independently.
+The GitHub Actions workflows are intentionally separated so each gate has a clear responsibility and can be explained independently.
 
-| Workflow | Trigger | Purpose |
-| --- | --- | --- |
-| `ci.yml` | Pull request, push to `main` | Runs install, lint, unit tests, API/e2e tests, spelling checks, and coverage generation. |
-| `pr-policy.yml` | Pull request | Checks PR title, branch naming, and Conventional Commit style so project history stays release-friendly. |
-| `security.yml` | Pull request, push to `main`, scheduled | Runs dependency vulnerability checks, secret scanning, and static analysis. |
-| `codeql.yml` | Pull request, push to `main`, scheduled | Runs GitHub CodeQL for semantic code scanning. |
-| `ai-review.yml` | Pull request | Uses Claude Code as an AI reviewer for risk-focused feedback on NestJS code, tests, API behavior, and security. |
-| `release.yml` | Tag or release branch | Generates release notes/changelog and creates a GitHub Release. |
-| `docker.yml` | Release | Builds and pushes the Docker image to the container registry. |
-| `image-security.yml` | Release, image publish | Scans the Docker image, generates an SBOM, and optionally signs the image. |
+| Workflow             | Trigger                                 | Purpose                                                                                                         |
+| -------------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `ci.yml`             | Pull request, push to `main`            | Runs install, lint, unit tests, API/e2e tests, spelling checks, and coverage generation.                        |
+| `pr-policy.yml`      | Pull request                            | Checks PR title, branch naming, and Conventional Commit style so project history stays release-friendly.        |
+| `security.yml`       | Pull request, push to `main`, scheduled | Runs dependency vulnerability checks, secret scanning, and static analysis.                                     |
+| `codeql.yml`         | Pull request, push to `main`, scheduled | Runs GitHub CodeQL for semantic code scanning.                                                                  |
+| `ai-review.yml`      | Pull request                            | Uses Claude Code as an AI reviewer for risk-focused feedback on NestJS code, tests, API behavior, and security. |
+| `release.yml`        | Tag or release branch                   | Generates release notes/changelog and creates a GitHub Release.                                                 |
+| `docker.yml`         | Release                                 | Builds and pushes the Docker image to the container registry.                                                   |
+| `image-security.yml` | Release, image publish                  | Scans the Docker image, generates an SBOM, and optionally signs the image.                                      |
 
 ## Local Quality Gates
 
-The local development layer is planned to use Git hooks to catch common issues early:
+The local development layer uses Git hooks to catch common issues early:
 
 - `pre-commit`: format staged files, run lint on staged files, and run spelling checks.
 - `commit-msg`: validate commit messages with Conventional Commits.
 - `pre-push`: run unit tests and API/e2e tests before pushing.
 
 The CI layer will always re-run important checks, because local hooks are a developer convenience rather than the final source of truth.
+
+After cloning the repository, run `pnpm install` so the `prepare` script can enable Husky hooks locally.
+
+## Repository Settings
+
+To use the full remote workflow set, configure these GitHub settings:
+
+- Add `ANTHROPIC_API_KEY` as an Actions secret for Claude Code review.
+- Enable GitHub Advanced Security features if available for CodeQL and secret scanning visibility.
+- Enable GitHub Packages for GHCR image publishing.
+- Protect `main` or `master` and require the CI, PR policy, security, CodeQL, and AI review jobs that fit your demo.
+- Allow GitHub Actions to create pull requests so release-please can open release PRs.
 
 ## Project Commands
 
@@ -101,11 +113,10 @@ pnpm run test:cov
 8. A release is created from `main` or a tag.
 9. The release pipeline builds a Docker image, scans it, generates SBOM evidence, signs it, and publishes it.
 
-## Implementation Roadmap
+## Implemented Configuration
 
-- Add local quality tools: `cspell`, `husky`, `lint-staged`, and `commitlint`.
-- Add GitHub Actions workflows for CI, policy checks, and security scanning.
-- Add AI code review workflow with Claude Code.
-- Add Dockerfile and container build workflow.
-- Add image scanning, SBOM generation, and optional image signing.
-- Add release automation with generated changelog and GitHub Release output.
+- Local quality tools: `cspell`, `husky`, `lint-staged`, and `commitlint`.
+- GitHub Actions workflows for CI, policy checks, dependency/security scanning, CodeQL, and Claude Code review.
+- Docker multi-stage build and GHCR publishing workflow.
+- Image security workflow with Trivy SARIF upload and SBOM artifact generation.
+- Release automation with release-please and generated changelog/GitHub Release output.

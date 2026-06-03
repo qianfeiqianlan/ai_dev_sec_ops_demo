@@ -1,0 +1,2 @@
+pnpm run test:ci
+pnpm run test:e2e:ci

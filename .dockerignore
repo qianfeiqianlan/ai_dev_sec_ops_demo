@@ -1,0 +1,13 @@
+.git
+.github
+.husky
+coverage
+dist
+node_modules
+npm-debug.log*
+pnpm-debug.log*
+README.md
+docs
+.env
+.env.*
+!.env.example
