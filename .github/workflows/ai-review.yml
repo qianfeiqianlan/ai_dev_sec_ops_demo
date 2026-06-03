@@ -21,7 +21,10 @@ jobs:
     if: ${{ !github.event.pull_request.draft && github.actor != 'dependabot[bot]' }}
     env:
       ANTHROPIC_BASE_URL: ${{ vars.ANTHROPIC_BASE_URL }}
+      ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
       ANTHROPIC_DEFAULT_SONNET_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+      ANTHROPIC_DEFAULT_HAIKU_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+      ANTHROPIC_DEFAULT_OPUS_MODEL: ${{ vars.ANTHROPIC_MODEL }}
 
     steps:
       - name: Checkout
@@ -45,4 +48,5 @@ jobs:
 
             Keep feedback concise and actionable. Do not request style-only changes when ESLint or Prettier already covers them.
           claude_args: |
+            --model ${{ vars.ANTHROPIC_MODEL }}
             --max-turns 5
