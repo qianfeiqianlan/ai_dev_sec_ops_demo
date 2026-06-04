@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.0](https://github.com/qianfeiqianlan/ai_dev_sec_ops_demo/compare/ai-dev-sec-ops-demo-v0.1.0...ai-dev-sec-ops-demo-v0.2.0) (2026-06-04)
+
+
+### Features
+
+* migrate to Turbo monorepo ([f1125a9](https://github.com/qianfeiqianlan/ai_dev_sec_ops_demo/commit/f1125a9c665bae03fe802366e0379805de2524b0))
+* migrate to Turbo monorepo ([14ea81b](https://github.com/qianfeiqianlan/ai_dev_sec_ops_demo/commit/14ea81bc6557db8d541996a16fcb82bdd3d8c7c0))
+
 ## [0.1.0](https://github.com/qianfeiqianlan/ai_dev_sec_ops_demo/compare/ai-dev-sec-ops-demo-v0.0.1...ai-dev-sec-ops-demo-v0.1.0) (2026-06-03)
 
 ### Features
