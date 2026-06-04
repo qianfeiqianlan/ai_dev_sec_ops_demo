@@ -1,5 +1,5 @@
 module.exports = {
   '*.{ts,js,json,md,yml,yaml}': ['prettier --write'],
-  '*.ts': ['eslint --fix'],
+  '*.ts': () => 'pnpm run lint:fix',
   '*': ['cspell --no-progress --no-must-find-files'],
 };

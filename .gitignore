@@ -1,7 +1,11 @@
 # compiled output
 /dist
+**/dist
 /node_modules
+**/node_modules
 /.pnpm-store
+/.turbo
+**/*.tsbuildinfo
 /build
 
 # Logs
@@ -18,6 +22,7 @@ lerna-debug.log*
 
 # Tests
 /coverage
+**/coverage
 /.nyc_output
 
 # IDEs and editors

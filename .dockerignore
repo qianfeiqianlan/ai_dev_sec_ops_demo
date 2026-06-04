@@ -3,7 +3,9 @@
 .husky
 coverage
 dist
+**/dist
 node_modules
+**/node_modules
 npm-debug.log*
 pnpm-debug.log*
 README.md

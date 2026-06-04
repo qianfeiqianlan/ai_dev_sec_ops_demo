@@ -3,7 +3,9 @@ import { readFileSync } from 'node:fs';
 const eventPath = process.env.GITHUB_EVENT_PATH;
 
 if (!eventPath) {
-  console.log('GITHUB_EVENT_PATH is not set. Skipping PR policy check outside GitHub Actions.');
+  console.log(
+    'GITHUB_EVENT_PATH is not set. Skipping PR policy check outside GitHub Actions.',
+  );
   process.exit(0);
 }
 

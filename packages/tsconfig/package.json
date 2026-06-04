@@ -1,0 +1,13 @@
+{
+  "name": "@ai-devsecops/tsconfig",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./base.json": "./base.json",
+    "./nest.json": "./nest.json"
+  },
+  "files": [
+    "base.json",
+    "nest.json"
+  ]
+}

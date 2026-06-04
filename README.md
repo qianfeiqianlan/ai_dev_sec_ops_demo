@@ -31,10 +31,30 @@ The goal is to demonstrate how code moves from local development checks, through
 - NestJS
 - TypeScript
 - pnpm
+- pnpm workspace
+- Turbo
 - Jest unit tests
 - Supertest API/e2e tests
 - GitHub Actions
 - Docker
+
+## Monorepo Layout
+
+This project is organized as a pnpm + Turbo monorepo:
+
+```text
+.
+├─ apps/
+│  └─ api/                  # NestJS API application
+├─ packages/
+│  ├─ shared/               # Shared business logic and types
+│  ├─ tsconfig/             # Shared TypeScript configuration
+│  └─ eslint-config/        # Shared ESLint configuration
+├─ pnpm-workspace.yaml
+└─ turbo.json
+```
+
+The root package owns orchestration commands. The API package owns NestJS runtime code. Shared packages keep cross-application logic and engineering configuration reusable as the repository grows.
 
 ## DevSecOps Flow
 
