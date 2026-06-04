@@ -1,6 +1,6 @@
 {
   "name": "ai_dev_sec_ops_demo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "NestJS monorepo demo for GitHub-based CR/MR and CI/CD DevSecOps workflows.",
   "author": "",
   "private": true,
