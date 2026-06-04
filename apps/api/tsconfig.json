@@ -1,0 +1,10 @@
+{
+  "extends": "@ai-devsecops/tsconfig/nest.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@ai-devsecops/shared": ["../../packages/shared/src"]
+    }
+  }
+}
